@@ -87,6 +87,8 @@ function INIT_LEVEL_1(snake, apple, apple2, medicine) {
         //TODO:
         //BUAT OBSTACLE ATAU DINDING DISINI
         boardGame.createMovingObstacle(cactus, onHitByCactus)
+        boardGame.obstacle(12,6,20)
+        boardGame.obstacle(12,23,20)
 
         if (snake.score === 5) {
             boardGame.stopRunner()

@@ -49,7 +49,7 @@ class SnakeAPI {
         this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeigth);
     }
 
-    obstacle = (posX, posY, size = CELL_SIZE, orientation = OREIENTATION_HORIZONTAL, color = '#808080', onHitObstacleCallback = () => { }) => {
+    obstacle = (posX, posY, size = CELL_SIZE, orientation = ORIENTATION_HORIZONTAL, color = '#808080', onHitObstacleCallback = () => { }) => {
         this.ctx.fillStyle = color
 
         const { isHitObstacle, affectedSnake } = this.isHittedObstacle(posX * CELL_SIZE, posY * CELL_SIZE, size, orientation)
@@ -63,7 +63,7 @@ class SnakeAPI {
             affectedSnake.body = [{ posX, posY }]
         }
 
-        if (orientation === OREIENTATION_HORIZONTAL) {
+        if (orientation === ORIENTATION_HORIZONTAL) {
             this.ctx.fillRect(posX * CELL_SIZE, posY * CELL_SIZE, size * CELL_SIZE, CELL_SIZE)
         } else {
             this.ctx.fillRect(posX * CELL_SIZE, posY * CELL_SIZE, CELL_SIZE, size * CELL_SIZE)
@@ -85,7 +85,7 @@ class SnakeAPI {
                 }
             }
 
-        } else if (orientationObstacle === OREIENTATION_HORIZONTAL) {
+        } else if (orientationObstacle === ORIENTATION_HORIZONTAL) {
             for (let i = 0; i < this.snake?.length; i++) {
                 const snake = this.snake[i]
                 for (let cell = 0; cell < size; cell++) {
