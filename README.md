@@ -7,5 +7,6 @@
 4. Helfrida Handayani
 
 ## Technology Use 
-1. Javascript
-2. Bootstrap
+1. HTML & CSS
+2. Javascript
+3. Bootstrap
