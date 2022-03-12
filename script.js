@@ -54,6 +54,7 @@ function main() {
     const { snake, apple, apple2, medicine } = getInitObject()
 
     INIT_LEVEL_1(snake, apple, apple2, medicine)
+    // INIT_LEVEL_4(snake, apple, apple2, medicine)
 
 }
 
@@ -87,6 +88,8 @@ function INIT_LEVEL_1(snake, apple, apple2, medicine) {
         //TODO:
         //BUAT OBSTACLE ATAU DINDING DISINI
         boardGame.createMovingObstacle(cactus, onHitByCactus)
+        boardGame.obastacle(10, 7, 25)
+        boardGame.obastacle(10, 22, 25)
 
         if (snake.score === 5) {
             boardGame.stopRunner()
@@ -184,6 +187,9 @@ function INIT_LEVEL_4(snake, apple, apple2, medicine) {
 
         //TODO:
         //BUAT OBSTACLE ATAU DINDING DISINI
+        boardGame.obastacle( 17,10,10)
+        boardGame.obastacle(16,1,10, OREIENTATION_VERTICAL)
+        boardGame.obastacle(27,1,10, OREIENTATION_VERTICAL)
 
         if (snake.score === 20) {
             boardGame.stopRunner()
@@ -266,10 +272,10 @@ const isPrime = num => {
     return num > 1;
 }
 
-function updateScore(snake){
+function updateScore(snake) {
     document.getElementById('statusScore').textContent = snake.score
 }
 
-function updateSpeed(speed){
+function updateSpeed(speed) {
     document.getElementById('statusSpeed').textContent = speed
 }
