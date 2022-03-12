@@ -1,5 +1,5 @@
-const OREIENTATION_VERTICAL = 'OREIENTATION_VERTICAL'
-const OREIENTATION_HORIZONTAL = 'OREIENTATION_HORIZONTAL'
+const ORIENTATION_VERTICAL = 'ORIENTATION_VERTICAL'
+const ORIENTATION_HORIZONTAL = 'ORIENTATION_HORIZONTAL'
 
 const DIRECTION_LEFT = 0
 const DIRECTION_UP = 1
@@ -49,11 +49,11 @@ class SnakeAPI {
         this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeigth);
     }
 
-    obastacle = (posX, posY, size = CELL_SIZE, orientation = OREIENTATION_HORIZONTAL, color = '#808080', onHitObstacleCallback = () => { }) => {
+    obstacle = (posX, posY, size = CELL_SIZE, orientation = OREIENTATION_HORIZONTAL, color = '#808080', onHitObstacleCallback = () => { }) => {
         this.ctx.fillStyle = color
 
-        const { isHitObastacle, affectedSnake } = this.isHittedObastacle(posX * CELL_SIZE, posY * CELL_SIZE, size, orientation)
-        if (isHitObastacle) {
+        const { isHitObstacle, affectedSnake } = this.isHittedObstacle(posX * CELL_SIZE, posY * CELL_SIZE, size, orientation)
+        if (isHitObstacle) {
             const { posX, posY } = this.getRandomPosition()
             onHitObstacleCallback(affectedSnake)
             affectedSnake.hp--;
@@ -71,32 +71,32 @@ class SnakeAPI {
 
     }
 
-    isHittedObastacle = (posX, posY, size, orientationObastacle) => {
-        let isHitObastacle = false
+    isHittedObstacle = (posX, posY, size, orientationObstacle) => {
+        let isHitObstacle = false
         let affectedSnake
-        if (orientationObastacle === OREIENTATION_VERTICAL) {
+        if (orientationObstacle === ORIENTATION_VERTICAL) {
             for (let i = 0; i < this.snake?.length; i++) {
                 const snake = this.snake[i]
                 for (let cell = 0; cell < size; cell++) {
                     if (snake.posX === posX && snake.posY === posY + (cell * CELL_SIZE)) {
-                        isHitObastacle = true
+                        isHitObstacle = true
                         affectedSnake = snake
                     }
                 }
             }
 
-        } else if (orientationObastacle === OREIENTATION_HORIZONTAL) {
+        } else if (orientationObstacle === OREIENTATION_HORIZONTAL) {
             for (let i = 0; i < this.snake?.length; i++) {
                 const snake = this.snake[i]
                 for (let cell = 0; cell < size; cell++) {
                     if (snake.posX === posX + (cell * CELL_SIZE) && snake.posY === posY) {
-                        isHitObastacle = true
+                        isHitObstacle = true
                         affectedSnake = snake
                     }
                 }
             }
         }
-        return { isHitObastacle, affectedSnake }
+        return { isHitObstacle, affectedSnake }
     }
 
     createObjectOnBoard = (object, isBlinking, overideOnHitObject) => {
