@@ -20,7 +20,7 @@ function getInitObject() {
     const snakeHeadImage = document.getElementById('snakeHead')
     const appleImage = document.getElementById('apple')
     const medicineImage = document.getElementById('medicine')
-    
+
     const snake = {
         id: 1,
         posX: 460,
@@ -57,7 +57,8 @@ function getInitObject() {
 function main() {
 
     const { snake, apple, apple2, medicine } = getInitObject()
-    INIT_LEVEL_1(snake, apple, apple2, medicine)
+    // INIT_LEVEL_1(snake, apple, apple2, medicine)
+    INIT_LEVEL_3(snake, apple, apple2, medicine)
 }
 
 function INIT_LEVEL_1(snake, apple, apple2, medicine) {
@@ -172,7 +173,7 @@ function INIT_LEVEL_3(snake, apple, apple2, medicine) {
         boardGame.obstacle(15,10,15)
         boardGame.obstacle(15,19,15)
         boardGame.obstacle(5,7,16, ORIENTATION_VERTICAL)
-        boardGame.obstacle(39.2,7,16, ORIENTATION_VERTICAL)
+        boardGame.obstacle(39,7,16, ORIENTATION_VERTICAL)
 
         if (snake.score === 15) {
             boardGame.stopRunner()
