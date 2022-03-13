@@ -52,9 +52,7 @@ function getInitObject() {
 function main() {
 
     const { snake, apple, apple2, medicine } = getInitObject()
-
-    INIT_LEVEL_2(snake, apple, apple2, medicine)
-
+    INIT_LEVEL_4(snake, apple, apple2, medicine)
 
 }
 
@@ -190,7 +188,14 @@ function INIT_LEVEL_4(snake, apple, apple2, medicine) {
 
         //TODO:
         //BUAT OBSTACLE ATAU DINDING DISINI
+        boardGame.obstacle(15,4,8, ORIENTATION_VERTICAL)
+        boardGame.obstacle(15,11,14)
+        boardGame.obstacle(28,4,8, ORIENTATION_VERTICAL)
         
+        boardGame.obstacle(15,18,8, ORIENTATION_VERTICAL)
+        boardGame.obstacle(15,18,14)
+        boardGame.obstacle(28,18,8, ORIENTATION_VERTICAL)
+
         if (snake.score === 20) {
             boardGame.stopRunner()
             boardGame.clearBoard()
