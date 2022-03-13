@@ -52,14 +52,16 @@ function getInitObject() {
 function main() {
 
     const { snake, apple, apple2, medicine } = getInitObject()
-
     INIT_LEVEL_1(snake, apple, apple2, medicine)
+    
 
 }
 
 function INIT_LEVEL_1(snake, apple, apple2, medicine) {
     const snakeBoard = document.getElementById('snakeBoard');
     const boardGame = new SnakeAPI(snakeBoard)
+    const nextLevel = new Audio('assets/next-level.wav')
+    
 
     document.getElementById('labelLevel').textContent = "LEVEL 1"
 
@@ -93,6 +95,7 @@ function INIT_LEVEL_1(snake, apple, apple2, medicine) {
         if (snake.score === 5) {
             boardGame.stopRunner()
             boardGame.clearBoard()
+            nextLevel.play()
             INIT_LEVEL_2(snake, apple, apple2, medicine)
             clearInterval(cactusInterval)
         }
@@ -103,11 +106,13 @@ function INIT_LEVEL_1(snake, apple, apple2, medicine) {
 function INIT_LEVEL_2(snake, apple, apple2, medicine) {
     const snakeBoard = document.getElementById('snakeBoard');
     const boardGame = new SnakeAPI(snakeBoard)
+    const nextLevel= new Audio('assets/next-level.wav')
 
     document.getElementById('labelLevel').textContent = "LEVEL 2"
 
     boardGame.initSpeed(40)
-    boardGame.startRunner(() => {
+    boardGame.startRunner(() => { 
+
         boardGame.createSnake(snake)
         boardGame.createObjectOnBoard(apple)
         boardGame.createObjectOnBoard(apple2)
@@ -122,6 +127,7 @@ function INIT_LEVEL_2(snake, apple, apple2, medicine) {
         if (snake.score === 10) {
             boardGame.stopRunner()
             boardGame.clearBoard()
+            nextLevel.play()
             INIT_LEVEL_3(snake, apple, apple2, snakeBoard, medicine)
         }
     })
@@ -130,6 +136,7 @@ function INIT_LEVEL_2(snake, apple, apple2, medicine) {
 function INIT_LEVEL_3(snake, apple, apple2, medicine) {
     const snakeBoard = document.getElementById('snakeBoard');
     const boardGame = new SnakeAPI(snakeBoard)
+    const nextLevel = new Audio('assets/next-level.wav')
 
     document.getElementById('labelLevel').textContent = "LEVEL 3"
 
@@ -161,6 +168,7 @@ function INIT_LEVEL_3(snake, apple, apple2, medicine) {
         if (snake.score === 15) {
             boardGame.stopRunner()
             boardGame.clearBoard()
+            nextLevel.play()
             INIT_LEVEL_4(snake, apple, apple2, snakeBoard)
             clearInterval(cactusInterval)
         }
@@ -171,6 +179,7 @@ function INIT_LEVEL_3(snake, apple, apple2, medicine) {
 function INIT_LEVEL_4(snake, apple, apple2, medicine) {
     const snakeBoard = document.getElementById('snakeBoard');
     const boardGame = new SnakeAPI(snakeBoard)
+    const nextLevel = new Audio('assets/next-level.wav')
 
     document.getElementById('labelLevel').textContent = "LEVEL 4"
 
@@ -188,6 +197,7 @@ function INIT_LEVEL_4(snake, apple, apple2, medicine) {
         //BUAT OBSTACLE ATAU DINDING DISINI
 
         if (snake.score === 20) {
+            nextLevel.play()
             boardGame.stopRunner()
             boardGame.clearBoard()
             INIT_LEVEL_5(snake, apple, apple2, snakeBoard)
@@ -199,6 +209,7 @@ function INIT_LEVEL_4(snake, apple, apple2, medicine) {
 function INIT_LEVEL_5(snake, apple, apple2, medicine) {
     const snakeBoard = document.getElementById('snakeBoard');
     const boardGame = new SnakeAPI(snakeBoard)
+    
 
     document.getElementById('labelLevel').textContent = "LEVEL 5"
 
@@ -229,17 +240,22 @@ function onEatMedicine(snake, medicine) {
     if (snake.hp < 3) {
         snake.hp++
     }
+    const getHP = new Audio('assets/get-hp.wav')
     const { posX, posY } = initRandomPostition()
     medicine.posX = posX
     medicine.posY = posY
+    getHP.play()
     snake.score++
 }
 
 function observeHealthPoint(game, snake) {
     const hpStatus = document.getElementsByClassName('hp')
+    const gameOver = new Audio('assets/game-over.wav')
+    
     if (snake.hp === 0) {
         game.stopRunner()
         setTimeout(() => {
+            gameOver.play()
             alert('Game Over.. You Lose..')
             const { snake, apple, apple2, medicine } = getInitObject()
             INIT_LEVEL_1(snake, apple, apple2, medicine)
@@ -255,8 +271,10 @@ function observeHealthPoint(game, snake) {
 }
 
 function onHitByCactus(snake, cactus) {
+    const audio = new Audio('assets/hit-cactus.wav')
     const { posX, posY } = initRandomPostition()
     snake.body = [{ posX, posY }]
+    audio.play()
     snake.score--
     snake.posX = posX
     snake.posY = posY
@@ -274,4 +292,19 @@ function updateScore(snake){
 
 function updateSpeed(speed){
     document.getElementById('statusSpeed').textContent = speed
+}
+
+function backsound(){
+    this.backsound = document.createElement("audio")
+    this.backsound.src = 'assets/backsound.wav'
+    this.backsound.setAttribute("preload", "auto")
+    this.backsound.style.display = none
+    document.body.appendChild(this.backsound)
+    this.play = function (){
+        this.backsound.play()
+    }
+    this.stop = function (){
+        this.sound.pause()
+    }
+
 }
