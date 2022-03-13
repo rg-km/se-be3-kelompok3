@@ -186,7 +186,7 @@ function INIT_LEVEL_4(snake, apple, apple2, medicine) {
 
         //TODO:
         //BUAT OBSTACLE ATAU DINDING DISINI
-
+        
         if (snake.score === 20) {
             boardGame.stopRunner()
             boardGame.clearBoard()
@@ -214,6 +214,16 @@ function INIT_LEVEL_5(snake, apple, apple2, medicine) {
 
         //TODO:
         //BUAT OBSTACLE ATAU DINDING DISINI
+        boardGame.obstacle(15,4,8, ORIENTATION_VERTICAL)
+        boardGame.obstacle(15,11,14)
+        boardGame.obstacle(28,4,8, ORIENTATION_VERTICAL)
+        
+        boardGame.obstacle(15,18,8, ORIENTATION_VERTICAL)
+        boardGame.obstacle(15,18,14)
+        boardGame.obstacle(28,18,8, ORIENTATION_VERTICAL)
+
+        boardGame.obstacle(5,10,10, ORIENTATION_VERTICAL)
+        boardGame.obstacle(39,10,10, ORIENTATION_VERTICAL)
     })
 }
 
