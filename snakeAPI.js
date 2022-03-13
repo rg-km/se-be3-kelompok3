@@ -54,7 +54,9 @@ class SnakeAPI {
 
         const { isHitObstacle, affectedSnake } = this.isHittedObstacle(posX * CELL_SIZE, posY * CELL_SIZE, size, orientation)
         if (isHitObstacle) {
+            const hitWall = new Audio('assets/hit-wall.wav')
             const { posX, posY } = this.getRandomPosition()
+            hitWall.play()
             onHitObstacleCallback(affectedSnake)
             affectedSnake.hp--;
             affectedSnake.posX = posX
@@ -114,8 +116,10 @@ class SnakeAPI {
                 overideOnHitObject(affectedSnake, object)
                 return
             }
+            const getPoint = new Audio('assets/get-point.wav') 
             object.posX = this.getRandomPosition().posX
             object.posY = this.getRandomPosition().posY
+            getPoint.play()
             affectedSnake.score += 1
             affectedSnake.body.push({ posX: affectedSnake.posX, posY: affectedSnake.posY })
         }
