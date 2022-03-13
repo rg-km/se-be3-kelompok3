@@ -16,14 +16,19 @@ function initDirection() {
 
 
 function getInitObject() {
+    const snakeBodyImage = document.getElementById('snakeBody')
+    const snakeHeadImage = document.getElementById('snakeHead')
+    const appleImage = document.getElementById('apple')
+    const medicineImage = document.getElementById('medicine')
+    
     const snake = {
         id: 1,
         posX: 460,
         posY: 300,
         direction: initDirection(),
         body: [{ posX: 460, posY: 300 }],
-        bodyImage: document.getElementById('snakeBody'),
-        headImage: document.getElementById('snakeHead'),
+        bodyImage: snakeBodyImage,
+        headImage: snakeHeadImage,
         score: 0,
         hp: 3
     }
@@ -31,21 +36,21 @@ function getInitObject() {
     const apple = {
         posX: initRandomPostition().posX,
         posY: initRandomPostition().posY,
-        image: document.getElementById('apple')
+        image: appleImage
     }
 
     const apple2 = {
         posX: initRandomPostition().posX,
         posY: initRandomPostition().posY,
-        image: document.getElementById('apple')
+        image: appleImage
     }
 
     const medicine = {
         posX: initRandomPostition().posX,
         posY: initRandomPostition().posY,
-        image: document.getElementById('medicine'),
-        isEaten: false
+        image: medicineImage,
     }
+
     return { snake, apple, apple2, medicine }
 }
 
@@ -59,7 +64,6 @@ function INIT_LEVEL_1(snake, apple, apple2, medicine) {
     const snakeBoard = document.getElementById('snakeBoard');
     const boardGame = new SnakeAPI(snakeBoard)
     const nextLevel = new Audio('assets/next-level.wav')
-    
 
     document.getElementById('labelLevel').textContent = "LEVEL 1"
 
@@ -109,7 +113,7 @@ function INIT_LEVEL_2(snake, apple, apple2, medicine) {
     document.getElementById('labelLevel').textContent = "LEVEL 2"
 
     boardGame.initSpeed(40)
-    boardGame.startRunner(() => { 
+    boardGame.startRunner(() => {
 
         boardGame.createSnake(snake)
         boardGame.createObjectOnBoard(apple)
@@ -129,7 +133,7 @@ function INIT_LEVEL_2(snake, apple, apple2, medicine) {
             boardGame.stopRunner()
             boardGame.clearBoard()
             nextLevel.play()
-            INIT_LEVEL_3(snake, apple, apple2, snakeBoard, medicine)
+            INIT_LEVEL_3(snake, apple, apple2, medicine)
         }
     })
 }
@@ -168,13 +172,13 @@ function INIT_LEVEL_3(snake, apple, apple2, medicine) {
         boardGame.obstacle(15,10,15)
         boardGame.obstacle(15,19,15)
         boardGame.obstacle(5,7,16, ORIENTATION_VERTICAL)
-        boardGame.obstacle(39.2,7,16, ORIENTATION_VERTICAL)
+        boardGame.obstacle(39,7,16, ORIENTATION_VERTICAL)
 
         if (snake.score === 15) {
             boardGame.stopRunner()
             boardGame.clearBoard()
             nextLevel.play()
-            INIT_LEVEL_4(snake, apple, apple2, snakeBoard)
+            INIT_LEVEL_4(snake, apple, apple2, medicine)
             clearInterval(cactusInterval)
         }
 
@@ -200,19 +204,19 @@ function INIT_LEVEL_4(snake, apple, apple2, medicine) {
 
         //TODO:
         //BUAT OBSTACLE ATAU DINDING DISINI
-        boardGame.obstacle(15,4,8, ORIENTATION_VERTICAL)
-        boardGame.obstacle(15,11,14)
-        boardGame.obstacle(28,4,8, ORIENTATION_VERTICAL)
-        
-        boardGame.obstacle(15,18,8, ORIENTATION_VERTICAL)
-        boardGame.obstacle(15,18,14)
-        boardGame.obstacle(28,18,8, ORIENTATION_VERTICAL)
+        boardGame.obstacle(15, 4, 8, ORIENTATION_VERTICAL)
+        boardGame.obstacle(15, 11, 14)
+        boardGame.obstacle(28, 4, 8, ORIENTATION_VERTICAL)
+
+        boardGame.obstacle(15, 18, 8, ORIENTATION_VERTICAL)
+        boardGame.obstacle(15, 18, 14)
+        boardGame.obstacle(28, 18, 8, ORIENTATION_VERTICAL)
 
         if (snake.score === 20) {
             nextLevel.play()
             boardGame.stopRunner()
             boardGame.clearBoard()
-            INIT_LEVEL_5(snake, apple, apple2, snakeBoard)
+            INIT_LEVEL_5(snake, apple, apple2, medicine)
         }
 
     })
@@ -221,7 +225,7 @@ function INIT_LEVEL_4(snake, apple, apple2, medicine) {
 function INIT_LEVEL_5(snake, apple, apple2, medicine) {
     const snakeBoard = document.getElementById('snakeBoard');
     const boardGame = new SnakeAPI(snakeBoard)
-    
+
 
     document.getElementById('labelLevel').textContent = "LEVEL 5"
 
@@ -237,16 +241,16 @@ function INIT_LEVEL_5(snake, apple, apple2, medicine) {
 
         //TODO:
         //BUAT OBSTACLE ATAU DINDING DISINI
-        boardGame.obstacle(15,4,8, ORIENTATION_VERTICAL)
-        boardGame.obstacle(15,11,14)
-        boardGame.obstacle(28,4,8, ORIENTATION_VERTICAL)
-        
-        boardGame.obstacle(15,18,8, ORIENTATION_VERTICAL)
-        boardGame.obstacle(15,18,14)
-        boardGame.obstacle(28,18,8, ORIENTATION_VERTICAL)
+        boardGame.obstacle(15, 4, 8, ORIENTATION_VERTICAL)
+        boardGame.obstacle(15, 11, 14)
+        boardGame.obstacle(28, 4, 8, ORIENTATION_VERTICAL)
 
-        boardGame.obstacle(5,10,10, ORIENTATION_VERTICAL)
-        boardGame.obstacle(39,10,10, ORIENTATION_VERTICAL)
+        boardGame.obstacle(15, 18, 8, ORIENTATION_VERTICAL)
+        boardGame.obstacle(15, 18, 14)
+        boardGame.obstacle(28, 18, 8, ORIENTATION_VERTICAL)
+
+        boardGame.obstacle(5, 10, 10, ORIENTATION_VERTICAL)
+        boardGame.obstacle(39, 10, 10, ORIENTATION_VERTICAL)
     })
 }
 
@@ -273,7 +277,7 @@ function onEatMedicine(snake, medicine) {
 function observeHealthPoint(game, snake) {
     const hpStatus = document.getElementsByClassName('hp')
     const gameOver = new Audio('assets/game-over.wav')
-    
+
     if (snake.hp === 0) {
         game.stopRunner()
         setTimeout(() => {
@@ -308,24 +312,24 @@ const isPrime = num => {
     return num > 1;
 }
 
-function updateScore(snake){
+function updateScore(snake) {
     document.getElementById('statusScore').textContent = snake.score
 }
 
-function updateSpeed(speed){
+function updateSpeed(speed) {
     document.getElementById('statusSpeed').textContent = speed
 }
 
-function backsound(){
+function backsound() {
     this.backsound = document.createElement("audio")
     this.backsound.src = 'assets/backsound.wav'
     this.backsound.setAttribute("preload", "auto")
     this.backsound.style.display = none
     document.body.appendChild(this.backsound)
-    this.play = function (){
+    this.play = function () {
         this.backsound.play()
     }
-    this.stop = function (){
+    this.stop = function () {
         this.sound.pause()
     }
 
