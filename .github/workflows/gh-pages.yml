@@ -3,7 +3,7 @@ name: GitHub Pages
 on:
   push:
     branches:
-      - master  # Set a branch name to trigger deployment
+      - feature/SPSG-50/create_github_pages_and_cicd  # Set a branch name to trigger deployment
   pull_request:
 
 jobs:
