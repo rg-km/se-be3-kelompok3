@@ -1,22 +1,21 @@
-name: GitHub Pages
-
+name: Build and Deploy
 on:
   push:
     branches:
-      - feature/SPSG-50/create_github_pages_and_cicd  # Set a branch name to trigger deployment
-  pull_request:
-
+      - feature/SPSG-50/create_github_pages_and_cicd
 jobs:
-  deploy:
-    runs-on: ubuntu-20.04
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Minify Action
+        uses: anthonyftwang/minify-action@v1.0.1
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          branch: gh-pages # The branch the action should deploy to.
+          folder: snake-game # The folder the action should deploy.
