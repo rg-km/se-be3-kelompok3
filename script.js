@@ -126,7 +126,7 @@ function INIT_LEVEL_2(snake, apple, apple2, medicine) {
         //TODO:
         //BUAT OBSTACLE ATAU DINDING DISINI
          boardGame.obstacle(5,7,16, ORIENTATION_VERTICAL)
-         boardGame.obstacle(39.2,7,16, ORIENTATION_VERTICAL)
+         boardGame.obstacle(39,7,16, ORIENTATION_VERTICAL)
 
 
         if (snake.score === 10) {
@@ -258,7 +258,6 @@ function medicineAtPrimeNumber(gameAPI, medicine, score) {
 
     if (isPrime(score)) {
         gameAPI.createObjectOnBoard(medicine, true, onEatMedicine)
-        console.log('score', score)
     }
 }
 
