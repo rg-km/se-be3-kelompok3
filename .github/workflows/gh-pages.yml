@@ -1,21 +1,25 @@
-name: Build and Deploy
+name: GitHub Pages
+
 on:
   push:
     branches:
       - master
+    paths:
+      - "/**"
+
 jobs:
-  build-and-deploy:
-    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v2
-
-      - name: Minify Action
-        uses: anthonyftwang/minify-action@v1.0.1
-
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.2.5
+      -
+        name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
         with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: ./ # The folder the action should deploy.
+          target_branch: gh-pages
+          build_dir: ./
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
